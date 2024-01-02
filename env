@@ -1,0 +1,3 @@
+eksctl get clusters --region ap-south-1
+export AWS_REGION=ap-south-1
+eksctl get clusters
