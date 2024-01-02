@@ -1,0 +1,31 @@
+eksctl create cluster --name ngnix-demo --region ap-south-1
+############
+eksctl delete cluster --name ngnix-demo --region ap-south-1
+############
+kubectl get nodes /kubectl get pods
+##############
+kubectl create -f ngnix-demo.yml
+###############
+kubectl get pods -o wide
+###############
+kubectl delete pod nginx
+#################
+curl ip address/ ssh ip address
+################
+kubectl describe pod nginx/kubectl logs nginx
+###################
+kubectl get deploy /kubectl get all /kubectl get all -A
+################
+kubectl get rs
+####################
+kubectl delete -f ngnix-deployment.yml
+###################
+Kubectl get pods -v=9
+###################
+kubectl apply -f ngnix-service.yml
+kubectl delete -f ngnix-service.yml
+######################
+kubectl get svc  /kubectl get svc nginx-service
+######################
+kubectl get pods -n Prometheus
+kubectl get all -n prometheus
