@@ -11,4 +11,40 @@ helm install prometheus prometheus-community/prometheus
 Expose Prometheus Service
 This is required to access prometheus-server using your browser.
 
-kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-ext
+kubectl get svc -n prometheus
+kubectl edit svc prometheus-server -n prometheus
+change from cluster ip to loadbalancer
+
+########################################################
+Step:1 kubectl create namespace grafana
+
+Step:2 mkdir -p ${HOME}/environment/grafana
+
+
+Step:3 cat << EoF > ${HOME}/environment/grafana/grafana.yaml
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: Prometheus
+      type: prometheus
+      url: http://prometheus-server.prometheus.svc.cluster.local
+      access: proxy
+      isDefault: true
+EoF
+
+
+Step:-4 helm install grafana grafana/grafana \
+    --namespace grafana \
+    --set persistence.storageClassName="gp2" \
+    --set persistence.enabled=true \
+    --set adminPassword='EKS!sAWSome' \
+    --values ${HOME}/environment/grafana/grafana.yaml \
+    --set service.type=LoadBalancer
+
+
+
+
+
+
+
