@@ -49,6 +49,19 @@ Step:-4 helm install grafana grafana/grafana \
     --values ${HOME}/environment/grafana/grafana.yaml \
     --set service.type=LoadBalancer
 
+kubectl get svc grafana
+
+6417 for import
+
+#cpu usage of each pod
+sum (rate (container_cpu_usage_seconds_total{image!=""}[1m])) by (pod_name)
+
+#Memory Usage of cluster
+(sum(node_memory_MemTotal_bytes) - sum(node_memory_MemFree_bytes +node_memory_Buffers_bytes + node_memory_Cached_bytes) ) / sum(node_memory_MemTotal_bytes) * 100
+
+#CPU usage of cluster
+sum(sum by (container_name)( rate(container_cpu_usage_seconds_total{image!=""}[1m] ) )) / count(node_cpu_seconds_total{mode="system"}) * 100
+
 
 
 6417 for import
