@@ -1,4 +1,4 @@
 Install the cluster
-eksctl create cluster --name demo-cluster-three-tier-1 --region us-east-1
+eksctl create cluster --name ngnix-demo --region ap-south-1
 Delete the cluster
-eksctl delete cluster --name demo-cluster-three-tier-1 --region us-east-1
+eksctl delete cluster --name ngnix-demo --region ap-south-1
