@@ -21,5 +21,8 @@ kubectl rollout status deployment/kiali -n istio-system
 echo "http://$GATEWAY_URL/productpage"
 kubectl patch service kiali --patch '{"spec":{"type":"LoadBalancer"}}' -n istio-system
 http://a38cc1dbefbbf4bf49e35eee677d2c60-658432199.ap-south-1.elb.amazonaws.com:20001/kiali/
+kubectl get svc -n istio-system
+kubectl patch service jaeger-collector --patch '{"spec":{"type":"LoadBalancer"}}' -n istio-system
+
 
 grapg-versioned graph
