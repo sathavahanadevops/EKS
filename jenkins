@@ -1,17 +1,33 @@
 pipeline {
   agent any
   stages {
-    stage('Git Checkout') {
+     stage('Install kubectl') {
       steps {
-        sh 'echo passed'
-        //git branch: 'main', url: 'https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero.git'
+        sh 'curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.28.3/2023-11-14/bin/linux/amd64/kubectl'
+        sh 'chmod +x ./kubectl'
+        sh 'mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH'
       }
     }
-     stage('Docker Build') {
-      steps {
-        sh 'docker build -t ngnix:latest .'
-        
-      }
+    stage('Install EKSctl'){
+    steps {
+        script {
+            def command = '''
+                ARCH=amd64
+                PLATFORM="$(uname -s)_$ARCH"
+
+                curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
+
+                # (Optional) Verify checksum
+                curl -sL "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_checksums.txt" | grep $PLATFORM | sha256sum --check
+
+                tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
+
+                echo "123456" | sudo -S mv /tmp/eksctl /usr/local/bin
+
+            '''
+            sh command
+        }
     }
- }
+}
+      }  
 }
