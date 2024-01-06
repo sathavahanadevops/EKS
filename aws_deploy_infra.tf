@@ -1,6 +1,10 @@
+provider "aws" {
+  region = "us-east-1"
+}
+
 resource "aws_instance" "manage" {
   ami                         = "ami-079db87dc4c10ac91"
-  availability_zone           = "us-east-1"
+  availability_zone           = "us-east-1a"
   instance_type               = "t2.medium"
   key_name                    = "demo"
   subnet_id                   = "subnet-060372cf8cd26124f"
