@@ -33,8 +33,8 @@ pipeline {
             steps {
              script {
                     def command = '''
-                        export AWS_ACCESS_KEY_ID=
-                        export AWS_SECRET_ACCESS_KEY=
+                        export AWS_ACCESS_KEY_ID=AKIAUFWGLJEE4TZBFWF6
+                        export AWS_SECRET_ACCESS_KEY=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
                         export AWS_DEFAULT_REGION=ap-south-1
                         eksctl get clusters
                     '''
